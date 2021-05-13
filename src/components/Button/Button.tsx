@@ -12,7 +12,6 @@ export enum ButtonType {
   Danger = "danger",
   Link = "link",
 }
-
 interface BaseButtonProps {
   className?: string;
   size?: ButtonSize;
@@ -22,9 +21,15 @@ interface BaseButtonProps {
   children: React.ReactNode;
 }
 
-const Button: React.FC<BaseButtonProps> = (props) => {
-  const { size, btnType, disabled, href, children } = props;
-  const classes = classNames("btn", {
+type NativeButtonProps = BaseButtonProps &
+  React.ButtonHTMLAttributes<HTMLElement>;
+type AnchorButtonProps = BaseButtonProps &
+  React.AnchorHTMLAttributes<HTMLElement>;
+export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>; // Partial constructs a type with all properties of Type set to optional.
+
+const Button: React.FC<ButtonProps> = (props) => {
+  const { className, size, btnType, disabled, href, children, ...rest } = props;
+  const classes = classNames(className, "btn", {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
     disabled: btnType === ButtonType.Link && disabled,
@@ -32,13 +37,13 @@ const Button: React.FC<BaseButtonProps> = (props) => {
 
   if (btnType === ButtonType.Link && href) {
     return (
-      <a className={classes} href={href}>
+      <a className={classes} href={href} {...rest}>
         {children}
       </a>
     );
   } else {
     return (
-      <button className={classes} disabled={disabled}>
+      <button className={classes} disabled={disabled} {...rest}>
         {children}
       </button>
     );

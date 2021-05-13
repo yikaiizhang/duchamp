@@ -4,7 +4,7 @@ import Button, { ButtonType, ButtonSize } from "./components/Button/Button";
 function App() {
   return (
     <div className='App'>
-      <Button>Default Button</Button>
+      <Button className='Yololololo'>Default Button</Button>
       <Button disabled>Disabled Button</Button>
       <Button btnType={ButtonType.Primary} size={ButtonSize.Small}>
         Small Primary Button
@@ -15,7 +15,11 @@ function App() {
       <Button btnType={ButtonType.Danger} size={ButtonSize.Small}>
         Small Danger Button
       </Button>
-      <Button btnType={ButtonType.Link} href='https://www.google.com'>
+      <Button
+        btnType={ButtonType.Link}
+        href='https://www.google.com'
+        target='_blank'
+      >
         Link Button
       </Button>
       <Button btnType={ButtonType.Link} href='https://www.google.com' disabled>
